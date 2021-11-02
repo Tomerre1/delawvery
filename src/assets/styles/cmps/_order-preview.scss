@@ -1,0 +1,33 @@
+.order-preview {
+    border-radius: 15px;
+    border: solid 1px $clr4;
+    padding: 10px;
+    max-width: 250px;
+    min-width: 250px;
+    position: relative;
+    flex-direction: column;
+    > h1:first-of-type {
+        margin-block-start: unset;
+        margin-block-end: 1.4rem;
+        font-size: 1.15rem;
+        color: $clr5;
+    }
+    > p:first-of-type {
+        color: $clr5;
+        font-weight: bold;
+    }
+    .order-actions {
+        position: absolute;
+        left: 0;
+
+        > svg {
+            cursor: pointer;
+            fill: $clr3;
+            margin-inline-end: 10px;
+            font-size: 1.2rem;
+            &:hover {
+                fill: $clr5;
+            }
+        }
+    }
+}

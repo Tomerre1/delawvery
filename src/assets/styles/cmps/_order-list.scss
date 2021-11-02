@@ -1,0 +1,16 @@
+.order-list {
+    gap: 20px;
+    overflow: hidden;
+    padding: 0 20px;
+    margin-block-start: 80px;
+    > h1 {
+        font-size: 1.4rem;
+    }
+    .order-count {
+        color: $clr5;
+        font-weight: bold;
+        > span:first-of-type {
+            margin-inline-start: 20px;
+        }
+    }
+}
