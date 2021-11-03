@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 
 
-export function OrderAdd() {
+export function OrderAdd({ addOrder }) {
 
     const [selectedDate, setSelectedDate] = useState(Date.now());
     const [firstName, setFirstName] = useState('');
@@ -47,12 +47,28 @@ export function OrderAdd() {
         },
     }));
 
+    useEffect(() => {
+        setFirstName('')
+        setLastName('')
+    }, [])
+
     const orderSubmit = (e) => {
+        // if (!firstName || !lastName || !selectedDate) return
         e.preventDefault();
-        if (firstName && lastName && selectedDate)
-            console.log(firstName, lastName, selectedDate);
+        addOrder({
+            firstName,
+            lastName,
+            date: selectedDate,
+            description: 'פרטים',
+            name: 'הזמנה'
+        });
+        clearState()
     }
 
+    const clearState = () => {
+        setFirstName('')
+        setLastName('')
+    }
 
     return (
         <div className="order-add" style={{ flex: 1 }}>
