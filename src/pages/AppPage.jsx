@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { OrderList } from '../cmps/Order/OrderList'
-import { OrderAdd } from '../cmps/OrderAdd'
+import { OrderAddEdit } from '../cmps/OrderAddEdit'
 import { orderService } from '../services/order.service'
 export function AppPage() {
     const [orders, setOrders] = useState([])
@@ -42,8 +42,8 @@ export function AppPage() {
 
     return (
         <main className="flex">
-            <OrderList orders={orders} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />
-            <OrderAdd order={orderToEdit} onAddOrder={onAddOrder} onEditOrder={onEditOrder} />
+            <OrderList orderToEdit={orderToEdit} orders={orders} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />
+            <OrderAddEdit order={orderToEdit} onAddOrder={onAddOrder} onEditOrder={onEditOrder} />
         </main>
     )
 }

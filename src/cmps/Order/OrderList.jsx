@@ -2,7 +2,7 @@ import React from 'react'
 import { OrderPreview } from './OrderPreview'
 
 
-export const OrderList = ({ orders, onRemoveOrder, setEditOrder }) => {
+export const OrderList = ({ orderToEdit, orders, onRemoveOrder, setEditOrder }) => {
 
     return (
         <div className="order-list flex column align-center">
@@ -10,7 +10,7 @@ export const OrderList = ({ orders, onRemoveOrder, setEditOrder }) => {
                 <h1>רשימת הזמנות</h1>
                 <p className="order-count flex space-between">מספר הזמנות: <span>{orders?.length}</span></p>
             </div>
-            {orders?.map((order) => <OrderPreview key={order._id} order={order} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />)}
+            {orders?.map((order) => <OrderPreview key={order._id} orderToEdit={orderToEdit} order={order} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />)}
         </div>
     )
 }

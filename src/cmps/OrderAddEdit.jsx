@@ -5,9 +5,7 @@ import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@mui/material/Button';
 
-
-
-export function OrderAdd({ onEditOrder, onAddOrder, order }) {
+export function OrderAddEdit({ onEditOrder, onAddOrder, order }) {
 
     const [selectedDate, setSelectedDate] = useState(Date.now());
     const [firstName, setFirstName] = useState('');
@@ -21,7 +19,6 @@ export function OrderAdd({ onEditOrder, onAddOrder, order }) {
             cursor: 'pointer',
             borderRadius: 4,
             position: 'relative',
-            backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
             fontSize: 16,
             width: '200px',
             padding: '10px 12px',
@@ -31,19 +28,6 @@ export function OrderAdd({ onEditOrder, onAddOrder, order }) {
                 'background-color',
                 'box-shadow',
             ]),
-            fontFamily: [
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Segoe UI"',
-                'Roboto',
-                '"Helvetica Neue"',
-                'Arial',
-                'sans-serif',
-                '"Apple Color Emoji"',
-                '"Segoe UI Emoji"',
-                '"Segoe UI Symbol"',
-            ].join(','),
-
         },
     }));
 
@@ -71,7 +55,7 @@ export function OrderAdd({ onEditOrder, onAddOrder, order }) {
 
     return (
         <div className="order-add" style={{ flex: 1 }}>
-            <h1>{order?.name || 'הזמנה חדשה'}</h1>
+            <h1>{(order?._id) ? order.name + ' ' + order._id : 'הזמנה חדשה'}</h1>
             <form className="order-input flex " onSubmit={orderSubmit}>
 
                 <div className="flex column" >
