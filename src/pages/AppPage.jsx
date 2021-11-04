@@ -42,7 +42,7 @@ export function AppPage() {
     }
 
     return (
-        <main className="flex">
+        <main className="app-page">
             <OrderList orderToEdit={orderToEdit} orders={orders} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />
             <OrderAddEdit order={orderToEdit} onAddOrder={onAddOrder} onEditOrder={onEditOrder} />
         </main>

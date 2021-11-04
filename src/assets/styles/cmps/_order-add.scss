@@ -1,6 +1,10 @@
 .order-add {
-    margin-block-start: 80px;
     flex: 1;
+    @include for-normal-layout {
+        flex-direction: row;
+        align-items: unset;
+        margin-block-start: 80px;
+    }
     .order-input {
         margin-block-start: 50px;
         gap: 20px;
