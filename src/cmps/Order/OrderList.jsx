@@ -1,7 +1,6 @@
 import React from 'react'
 import { OrderPreview } from './OrderPreview'
 
-
 export const OrderList = ({ orderToEdit, orders, onRemoveOrder, setEditOrder }) => {
 
     return (

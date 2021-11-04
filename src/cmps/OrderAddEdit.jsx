@@ -54,7 +54,7 @@ export function OrderAddEdit({ onEditOrder, onAddOrder, order }) {
     }
 
     return (
-        <div className="order-add" style={{ flex: 1 }}>
+        <div className="order-add">
             <h1>{(order?._id) ? order.name + ' ' + order._id : 'הזמנה חדשה'}</h1>
             <form className="order-input flex " onSubmit={orderSubmit}>
 

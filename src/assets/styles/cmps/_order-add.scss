@@ -1,11 +1,12 @@
 .order-add {
     margin-block-start: 80px;
+    flex: 1;
     .order-input {
         margin-block-start: 50px;
         gap: 20px;
         flex-wrap: wrap;
         .input {
-            border: 1px solid #ced4da;
+            border: 1px solid $clr7;
             border-radius: 4px;
             position: relative;
             font-size: 16px;
