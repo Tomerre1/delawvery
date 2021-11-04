@@ -4,7 +4,6 @@ import { OrderAdd } from '../cmps/OrderAdd'
 import { orderService } from '../services/order.service'
 export function AppPage() {
     const [orders, setOrders] = useState([])
-    const [isAddMode, setIsAddMode] = useState(true)
     const [orderToEdit, setOrderToEdit] = useState(null)
 
     useEffect(() => {
@@ -16,27 +15,35 @@ export function AppPage() {
         setOrders(storageOrders)
     }
 
-    const addOrder = async (order) => {
-        const newOrder = await orderService.save(order)
-        setOrders([...orders, newOrder])
-        setIsAddMode(true)
-    }
-
-    const removeOrder = async (orderId) => {
-        await orderService.remove(orderId)
-        setOrders(orders.filter(order => order._id !== orderId))
-    }
-
-    const editOrder = async (orderId) => {
+    const setEditOrder = async (orderId) => {
         const orderToEdit = orders.find(order => order._id === orderId)
         setOrderToEdit(orderToEdit)
-        setIsAddMode(true)
+    }
+
+    const onAddOrder = async (order) => {
+        // Working with optimistic method first ui update and then server update
+        setOrders([...orders, order])
+        await orderService.save(order)
+    }
+
+    const onRemoveOrder = async (orderId) => {
+        // Working with optimistic method first ui update and then server update
+        setOrders(orders.filter(order => order._id !== orderId))
+        await orderService.remove(orderId)
+    }
+
+    const onEditOrder = async (order) => {
+        // Working with optimistic method first ui update and then server update
+        setOrderToEdit(null)
+        const updatedOrders = orders.map(currOrder => (currOrder._id === order._id) ? order : currOrder)
+        setOrders(updatedOrders)
+        await orderService.save(order)
     }
 
     return (
         <main className="flex">
-            <OrderList orders={orders} removeOrder={removeOrder} editOrder={editOrder} />
-            <OrderAdd addOrder={addOrder} />
+            <OrderList orders={orders} onRemoveOrder={onRemoveOrder} setEditOrder={setEditOrder} />
+            <OrderAdd order={orderToEdit} onAddOrder={onAddOrder} onEditOrder={onEditOrder} />
         </main>
     )
 }

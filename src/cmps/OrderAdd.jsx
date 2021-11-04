@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 
 
-export function OrderAdd({ addOrder }) {
+export function OrderAdd({ onEditOrder, onAddOrder, order }) {
 
     const [selectedDate, setSelectedDate] = useState(Date.now());
     const [firstName, setFirstName] = useState('');
@@ -48,32 +48,32 @@ export function OrderAdd({ addOrder }) {
     }));
 
     useEffect(() => {
-        setFirstName('')
-        setLastName('')
-    }, [])
+        setFirstName(order?.firstName || '')
+        setLastName(order?.lastName || '')
+        setSelectedDate(order?.date || Date.now())
+    }, [order])
 
     const orderSubmit = (e) => {
-        // if (!firstName || !lastName || !selectedDate) return
+        if (!firstName || !lastName || !selectedDate) return
         e.preventDefault();
-        addOrder({
-            firstName,
-            lastName,
-            date: selectedDate,
-            description: 'פרטים',
-            name: 'הזמנה'
-        });
+        (order) ? onEditOrder({ ...order, firstName, lastName, date: selectedDate })
+            : onAddOrder({
+                firstName, lastName, date: selectedDate, description: 'פרטים', name: 'הזמנה'
+            })
         clearState()
     }
 
     const clearState = () => {
         setFirstName('')
         setLastName('')
+        setSelectedDate(Date.now())
     }
 
     return (
         <div className="order-add" style={{ flex: 1 }}>
-            <h1>הזמנה חדשה</h1>
+            <h1>{order?.name || 'הזמנה חדשה'}</h1>
             <form className="order-input flex " onSubmit={orderSubmit}>
+
                 <div className="flex column" >
                     <label htmlFor="firstName" className="label" >
                         שם פרטי
@@ -122,7 +122,6 @@ export function OrderAdd({ addOrder }) {
                             required
                         />
                     </MuiPickersUtilsProvider>
-
                 </div>
 
 
@@ -131,8 +130,9 @@ export function OrderAdd({ addOrder }) {
                     className="order-submit"
                     type="submit"
                 >
-                    הוספה
+                    {order?._id ? 'עדכן הזמנה' : 'הוסף הזמנה'}
                 </Button>
+
             </form>
 
         </div>
