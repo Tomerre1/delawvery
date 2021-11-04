@@ -1,10 +1,21 @@
 .order-list {
     gap: 20px;
     overflow: hidden;
-    padding: 0 20px;
-    margin-block-start: 80px;
+    border-bottom: 1px solid $clr7;
+    padding: 20px 0;
+    width: 100vw;
+    @include for-normal-layout {
+        padding: 80px 20px 20px 20px;
+        height: 100vh;
+        width: unset;
+        border-left: 1px solid $clr7;
+    }
     > h1 {
-        font-size: 1.4rem;
+        font-size: rem(22px);
+        text-align: center;
+        @include for-normal-layout {
+            text-align: unset;
+        }
     }
     .order-count {
         color: $clr5;

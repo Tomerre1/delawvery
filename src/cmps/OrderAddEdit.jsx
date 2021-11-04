@@ -54,9 +54,9 @@ export function OrderAddEdit({ onEditOrder, onAddOrder, order }) {
     }
 
     return (
-        <div className="order-add flex align-center column">
+        <div className="order-add ">
             <h1>{(order?._id) ? order.name + ' ' + order._id : 'הזמנה חדשה'}</h1>
-            <form className="order-input flex " onSubmit={orderSubmit}>
+            <form className="order-form flex column align-center" onSubmit={orderSubmit}>
 
                 <div className="flex column" >
                     <label htmlFor="firstName" className="label" >

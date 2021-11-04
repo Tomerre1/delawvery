@@ -1,19 +1,24 @@
 .order-add {
     flex: 1;
+    padding: 0 20px 20px;
     @include for-normal-layout {
         flex-direction: row;
         align-items: unset;
         margin-block-start: 80px;
     }
-    .order-input {
-        margin-block-start: 50px;
+    .order-form {
+        margin-block-start: 20px;
         gap: 20px;
         flex-wrap: wrap;
+        @include for-normal-layout {
+            flex-direction: row;
+            margin-block-start: 50px;
+        }
         .input {
             border: 1px solid $clr7;
             border-radius: 4px;
             position: relative;
-            font-size: 16px;
+            font-size: rem(16px);
             width: 200px;
             padding: 10px 12px;
             transition: all 0.15s ease-in-out;
@@ -28,7 +33,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
                 "Helvetica Neue", sans-serif;
             color: rgba(0, 0, 0, 0.6);
-            font-size: 0.8rem;
+            font-size: rem(13px);
             line-height: 1.4375em;
             letter-spacing: 0.00938em;
         }
