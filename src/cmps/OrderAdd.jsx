@@ -82,7 +82,7 @@ export function OrderAdd({ addOrder }) {
                         placeholder="הכנס שם פרטי"
                         id="firstName"
                         onChange={(e) => { setFirstName(e.target.value) }}
-                        defaultValue={firstName}
+                        value={firstName}
                         required
                         inputProps={{ className: 'input' }}
                     />
@@ -96,7 +96,7 @@ export function OrderAdd({ addOrder }) {
                         placeholder="הכנס שם משפחה"
                         id="lastName"
                         onChange={(e) => setLastName(e.target.value)}
-                        defaultValue={lastName}
+                        value={lastName}
                         disableAutoFocus={true}
                         required
                         inputProps={{ className: 'input' }}
