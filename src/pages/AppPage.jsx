@@ -22,19 +22,16 @@ export function AppPage() {
     }
 
     const onAddOrder = async (order) => {
-        // Working with optimistic method first ui update and then server update
-        setOrders([...orders, order])
-        await orderService.save(order)
+        const newOrder = await orderService.save(order)
+        setOrders([...orders, newOrder])
     }
 
     const onRemoveOrder = async (orderId) => {
-        // Working with optimistic method first ui update and then server update
-        setOrders(orders.filter(order => order._id !== orderId))
         await orderService.remove(orderId)
+        setOrders(orders.filter(order => order._id !== orderId))
     }
 
     const onEditOrder = async (order) => {
-        // Working with optimistic method first ui update and then server update
         setOrderToEdit(null)
         const updatedOrders = orders.map(currOrder => (currOrder._id === order._id) ? order : currOrder)
         setOrders(updatedOrders)

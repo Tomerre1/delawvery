@@ -1,15 +1,22 @@
-import { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import Button from '@mui/material/Button';
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import TextField from '@material-ui/core/TextField';
 
 export function OrderAddEdit({ onEditOrder, onAddOrder, order }) {
-
-    const [selectedDate, setSelectedDate] = useState(Date.now());
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const validationSchema = Yup.object().shape({
+        firstName: Yup.string()
+            .min(2, "קצר מדי")
+            .max(50, "ארוך מדי")
+            .required("נדרש למלא שדה זה"),
+        lastName: Yup.string()
+            .min(2, "קצר מדי")
+            .max(50, "ארוך מדי")
+            .required("נדרש למלא שדה זה"),
+    });
 
     const DatePickerCmp = styled(DatePicker)(({ theme }) => ({
         '.MuiOutlinedInput-root: hover .MuiOutlinedInput-notchedOutline': {
@@ -31,94 +38,101 @@ export function OrderAddEdit({ onEditOrder, onAddOrder, order }) {
         },
     }));
 
-    useEffect(() => {
-        setFirstName(order?.firstName || '')
-        setLastName(order?.lastName || '')
-        setSelectedDate(order?.date || Date.now())
-    }, [order])
-
-    const orderSubmit = (e) => {
-        if (!firstName || !lastName || !selectedDate) return
-        e.preventDefault();
-        (order) ? onEditOrder({ ...order, firstName, lastName, date: selectedDate })
+    const orderSubmit = (values, { resetForm }) => {
+        const { firstName, lastName, date } = values;
+        (order) ? onEditOrder({ ...order, firstName, lastName, date })
             : onAddOrder({
-                firstName, lastName, date: selectedDate, description: 'פרטים', name: 'הזמנה'
+                firstName, lastName, date, description: 'פרטים', name: 'הזמנה'
             })
-        clearState()
-    }
+        resetForm({})
 
-    const clearState = () => {
-        setFirstName('')
-        setLastName('')
-        setSelectedDate(Date.now())
     }
 
     return (
         <div className="order-add ">
             <h1>{(order?._id) ? order.name + ' ' + order._id : 'הזמנה חדשה'}</h1>
-            <form className="order-form flex column align-center" onSubmit={orderSubmit}>
+            <Formik
+                onSubmit={orderSubmit}
+                initialValues={{
+                    firstName: order?.firstName || '',
+                    lastName: order?.lastName || '',
+                    date: order?.date || Date.now(),
+                }}
+                validationSchema={validationSchema}
+                enableReinitialize={true}
+            >
+                {props => (
+                    <form className="order-form flex column align-center" onSubmit={props.handleSubmit}>
+                        <div className="flex column" >
+                            <label htmlFor="firstName" className="label" >
+                                שם פרטי
+                            </label>
+                            <TextField
+                                variant="outlined"
+                                placeholder="הכנס שם פרטי"
+                                id="firstName"
+                                name="firstName"
+                                onChange={props.handleChange}
+                                value={props.values.firstName}
+                                inputProps={{ className: 'input' }}
+                                error={props.touched.firstName && Boolean(props.errors.firstName)}
+                                helperText={(props.touched.firstName && props.errors.firstName) || " "}
+                                FormHelperTextProps={{ style: { textAlign: 'right' } }}
+                            />
+                        </div>
 
-                <div className="flex column" >
-                    <label htmlFor="firstName" className="label" >
-                        שם פרטי
-                    </label>
-                    <InputBase
-                        placeholder="הכנס שם פרטי"
-                        id="firstName"
-                        onChange={(e) => { setFirstName(e.target.value) }}
-                        value={firstName}
-                        required
-                        inputProps={{ className: 'input' }}
-                    />
-                </div>
+                        <div className="flex column">
+                            <label htmlFor="lastName" className="label" >
+                                שם משפחה
+                            </label>
+                            <TextField
+                                variant="outlined"
+                                placeholder="הכנס שם משפחה"
+                                id="lastName"
+                                name="lastName"
+                                onChange={props.handleChange}
+                                value={props.values.lastName}
+                                error={props.touched.lastName && Boolean(props.errors.lastName)}
+                                helperText={(props.touched.lastName && props.errors.lastName) || " "}
+                                inputProps={{ className: 'input' }}
+                                FormHelperTextProps={{ style: { textAlign: 'right' } }}
 
-                <div className="flex column">
-                    <label htmlFor="lastName" className="label" >
-                        שם משפחה
-                    </label>
-                    <InputBase
-                        placeholder="הכנס שם משפחה"
-                        id="lastName"
-                        onChange={(e) => setLastName(e.target.value)}
-                        value={lastName}
-                        disableAutoFocus={true}
-                        required
-                        inputProps={{ className: 'input' }}
+                            />
+                        </div>
 
-                    />
-                </div>
+                        <div className="flex column">
+                            <label htmlFor="date" className="label" >
+                                תאריך
+                            </label>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                                <DatePickerCmp
+                                    id="date"
+                                    inputVariant="outlined"
+                                    placeholder="הכנס תאריך"
+                                    format={"dd/MM/yyyy"}
+                                    value={props.values.date}
+                                    animateYearScrolling={false}
+                                    autoOk={false}
+                                    helperText={" "}
+                                    clearable
+                                    required
+                                    onChange={(date) => props.setFieldValue("date", date)}
+                                />
+                            </MuiPickersUtilsProvider>
 
-                <div className="flex column">
-                    <label htmlFor="date" className="label" >
-                        תאריך
-                    </label>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                        <DatePickerCmp
-                            id="date"
-                            inputVariant="outlined"
-                            placeholder="הכנס תאריך"
-                            format={"dd/MM/yyyy"}
-                            value={selectedDate}
-                            onChange={setSelectedDate}
-                            animateYearScrolling={false}
-                            autoOk={false}
-                            clearable
-                            required
-                        />
-                    </MuiPickersUtilsProvider>
-                </div>
+                        </div>
 
+                        <Button
+                            variant="contained"
+                            className="order-submit"
+                            type="submit"
+                        >
+                            {order?._id ? 'עדכן הזמנה' : 'הוסף הזמנה'}
+                        </Button>
 
-                <Button
-                    variant="contained"
-                    className="order-submit"
-                    type="submit"
-                >
-                    {order?._id ? 'עדכן הזמנה' : 'הוסף הזמנה'}
-                </Button>
-
-            </form>
-
-        </div>
+                    </form>
+                )}
+            </Formik>
+        </div >
     )
 }
