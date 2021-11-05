@@ -6,6 +6,11 @@ const routes = [
         component: AppPage,
         isExact: true
     },
+    {
+        path: '/workproject',
+        component: AppPage,
+        isExact: true
+    },
 ]
 
 export default routes;
