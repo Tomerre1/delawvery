@@ -6,7 +6,6 @@
 - Build with react and data saved in localstorage.
 - Responsive design for all devices.
 - Demo online: https://tomerre1.github.io/workproject
-- Screenshots:
 ![Screen Shot 2021-11-13 at 14 11 10](https://user-images.githubusercontent.com/58183173/141643333-04c19909-16c6-419f-91be-fcca89656218.png)
 ![Screen Shot 2021-11-13 at 14 12 19](https://user-images.githubusercontent.com/58183173/141643335-50c0683d-33b9-4f9e-b06f-913fdd7a3dbd.png)
 
