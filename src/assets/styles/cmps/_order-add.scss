@@ -14,23 +14,6 @@
             margin-block-start: 20px;
             gap: 20px;
         }
-        .input {
-            border: 1px solid $clr7;
-            border-radius: 4px;
-            position: relative;
-            font-size: rem(16px);
-            width: 200px;
-            padding: 10px 12px;
-            transition: all 0.15s ease-in-out;
-            p {
-                text-align: right;
-            }
-
-            &:hover,
-            &:focus {
-                border-color: #000;
-            }
-        }
         .label {
             font-weight: bold;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
