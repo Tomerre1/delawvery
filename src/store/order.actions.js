@@ -31,7 +31,6 @@ const updateOrderAction = (order) => {
 export function loadOrders() {
     return async (dipatch) => {
         try {
-            console.log('loadOrders')
             const orders = await orderService.query()
             dipatch(setOrdersAction(orders))
         }
