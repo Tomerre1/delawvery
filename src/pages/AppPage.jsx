@@ -29,6 +29,7 @@ export function AppPage() {
 
     const onEditOrder = async (order) => {
         dispatch(updateOrder(order))
+        setOrderToEdit(null)
     }
 
     return (
