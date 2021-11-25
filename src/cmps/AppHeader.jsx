@@ -3,7 +3,7 @@ import logo from '../assets/img/DeLawVeryLogo.svg'
 export const AppHeader = () => {
     return (
         <header className="app-header flex align-center justify-center">
-            <NavLink to="/">
+            <NavLink to="/workproject">
                 <img className="logo" src={logo} alt="company logo" />
             </NavLink>
         </header>
