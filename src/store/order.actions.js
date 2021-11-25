@@ -44,7 +44,6 @@ export function loadOrders() {
 export function addOrder(order) {
     return async (dipatch) => {
         try {
-            console.log('addOrder')
             const newOrder = await orderService.save(order)
             dipatch(addOrderAction(newOrder))
         }
@@ -57,7 +56,6 @@ export function addOrder(order) {
 export function removeOrder(orderId) {
     return async (dipatch) => {
         try {
-            console.log('removeOrder')
             await orderService.remove(orderId)
             dipatch(removeOrderAction(orderId))
         }
@@ -70,7 +68,6 @@ export function removeOrder(orderId) {
 export function updateOrder(order) {
     return async (dipatch) => {
         try {
-            console.log('updateOrder')
             await orderService.save(order)
             dipatch(updateOrderAction(order))
         }
