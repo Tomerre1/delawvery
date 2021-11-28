@@ -8,7 +8,7 @@ export function AppPage() {
 
     const [orderToEdit, setOrderToEdit] = useState(null)
     const dispatch = useDispatch()
-    const orders = useSelector(state => state.orders)
+    const orders = useSelector(state => state.orderModule.orders)
 
     useEffect(() => {
         dispatch(loadOrders())
