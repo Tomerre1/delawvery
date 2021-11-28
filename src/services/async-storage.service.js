@@ -7,7 +7,7 @@ export const storageService = {
     remove,
     postMany
 }
-
+'h1'
 function query(entityType, delay = 0) {
     var entities = JSON.parse(localStorage.getItem(entityType)) || []
 
