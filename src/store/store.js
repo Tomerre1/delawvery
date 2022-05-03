@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const check = 'check dev'
 export const store = createStore(
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))
